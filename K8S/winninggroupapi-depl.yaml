@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: winninggroupapi-depl
+  namespace: winning-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: winninggroupapiservice
+      version: v01
+  template:
+    metadata:
+      labels:
+        app: winninggroupapiservice
+        version: v01
+    spec:
+      containers:
+        - name: winninggroupapiservice
+          image: cembo/winninggroupapi:latest
+          ports:
+            - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: winninggroupapiservice-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: winninggroupapiservice
+  ports:
+    - name: winninggroupapiservice
+      protocol: TCP
+      port: 80
+      targetPort: 80

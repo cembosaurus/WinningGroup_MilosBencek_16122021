@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: winning-test
+  labels:
+    name: winning-test
